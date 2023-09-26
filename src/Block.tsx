@@ -22,7 +22,7 @@ const Block = ({ item }: Props) => {
         key={item}
       >
         <CardHeader dragControls={dragControls} />
-        <Reorder.Group axis="y" values={card} onReorder={setCard}>
+        <Reorder.Group axis="y" values={card} onReorder={setCard} className="list-style wtf">
           {card.map((card) => {
             return (
               <Reorder.Item
