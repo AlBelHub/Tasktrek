@@ -1,16 +1,16 @@
-interface Page {
+export interface Page {
     id: string,
     name: string,
     blocks: Block[]
 }
 
-interface Block {
+export interface Block {
     id: string,
     header: string,
-    cards: Card[]
+    cards: Array<number>
 }
 
-interface Card {
+export interface Card {
     id: string,
     header: string,
 }

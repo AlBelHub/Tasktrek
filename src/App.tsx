@@ -8,11 +8,23 @@ import "./App.css";
 
 function App() {
   const [blocks, setBlocks] = useState([0, 1, 2]);
+  const [id, setId] = useState(3);
 
+
+  const handleClick = () => {
+    setBlocks(
+      [
+        ...blocks,
+        id + 1,
+      ]
+    )
+    setId(id+1);
+  }
 
   return (
     <>
       <div className="">
+        <div className="button" onClick={() => handleClick()}>ADD</div>
         <Reorder.Group 
         axis="x" 
         values={blocks} 
