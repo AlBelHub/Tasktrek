@@ -33,3 +33,21 @@
   margin: 0;
   padding: 0;
 }
+
+.button {
+  display: flex;
+  width: 70px;
+  height: 30px;
+  border: solid 1px black;
+  margin: 10px;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.button:hover {
+  background-color: rgba(142, 255, 217, 0.466);
+  border: 1px solid aqua;
+}
