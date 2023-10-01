@@ -1,46 +1,55 @@
-import React, { SyntheticEvent, useState } from 'react';
-import {
-  Reorder, calcLength,
-} from "framer-motion";
+import React, { SyntheticEvent, useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { addBlock, deleteBlock } from "./store/basicActionsSlice.tsx";
+
 import Block from './Block.tsx';
 import "./App.css";
 import { RootState } from "./store/store.tsx";
+import { nanoid } from 'nanoid';
 
 function App() {
 
   const [header, setHeader] = useState("");
 
-  const id = 2;
 
-  const count = useSelector((state: RootState):any => state.basicAction.values);
+
+  const CardState = useSelector((state: RootState):any => state.basicAction.values);
   const dispatch = useDispatch();
 
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setHeader(e.target.value);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+  const scrollContainer = useRef<HTMLDivElement>(null);
+
+  const handleAddButton = () => {
+    if (header.length === 0) {
+      inputRef.current.focus();
+    } else {
+      dispatch(addBlock({id: nanoid(4), header: header}))
+      
+    }
+  } 
+
+  const handleWheel = (e:SyntheticEvent) => {
+      console.log("handled");
+      scrollContainer.current.scrollLeft += e.deltaY;
   }
 
   return (
     <>
-      <div className="">
-        <div className="button" onClick={() => dispatch(addBlock(id + 1, header))}>ADD</div>
-        <div className="button" onClick={() => dispatch(deleteBlock())}>DELETE</div>
-        <input className="button" onChange={(e) => handleInput(e)}/>
-        <div className="text">Count: {count.length}</div>
-        <Reorder.Group 
-        axis="x"
-        values={count}
-        onReorder={count}
-        className="app-container list-style"
-        >
-          {count.map((item: number) => {
-            return (
-              <Block key={item} item={item}/>
+        <div className="menu-container">
+          <p className="text">INFO</p>
+          <div className="count-TEMP">{CardState.length}</div>
+          <input ref={inputRef} type="text" onChange={e => { setHeader(e.target.value)}} />
+          <div className="button" onClick={() => handleAddButton()}>ADD</div>
+          <div className="button" onClick={() => dispatch(deleteBlock())}>DELETE</div>
+        </div>
+        <div className="cards-container" ref={scrollContainer} onWheel={(e) => handleWheel(e)}>
+          {CardState.map(card => {
+            return(
+              <Block key={card.id} header={card.header}/>
             );
           })}
-        </Reorder.Group>
-      </div>
+        </div>
     </>
   );
 }
