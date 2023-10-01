@@ -1,41 +1,28 @@
 import React from "react";
 import { useState } from "react";
-import { useMotionValue, useDragControls, Reorder } from "framer-motion";
-import CardHeader from "./CardHeader";
 
 interface Props {
-  item: number;
+  header: string;
 }
 
-const Block = ({ item }: Props) => {
+const Block = ({header}: Props) => {
   const [card, setCard] = useState([0, 1, 2, 3, 4]);
 
-  const dragControls = useDragControls();
+
 
   return (
     <>
-      <Reorder.Item
-        value={item}
-        dragListener={false}
-        dragControls={dragControls}
-        className="basic-container basic-border basic-m-p"
-        key={item}
-      >
-        <CardHeader dragControls={dragControls} />
-        <Reorder.Group axis="y" values={card} onReorder={setCard} className="list-style wtf">
-          {card.map((card) => {
-            return (
-              <Reorder.Item
-                key={card}
-                value={card}
-                className="basic-m-p basic-border list-style"
-              >
-                {card}
-              </Reorder.Item>
-            );
-          })}
-        </Reorder.Group>
-      </Reorder.Item>
+    <div className="card-container">
+      <div className="TEMP-container">
+        <div className="header-text">{header}</div>
+        <div className="content-container">
+          {card.map((item) => {
+            return(<div key={item}>{item}</div>);
+            })}
+        </div>
+      </div>
+    </div>
+
     </>
   );
 };
