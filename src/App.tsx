@@ -9,6 +9,7 @@ import { nanoid } from "nanoid";
 
 function App() {
   const [header, setHeader] = useState("");
+  const [visible, setVisible] = useState(false);
 
   const CardState = useSelector(
     (state: RootState): any => state.basicAction.values
@@ -23,6 +24,8 @@ function App() {
       inputRef.current.focus();
     } else {
       dispatch(addBlock({ id: nanoid(4), header: header }));
+      inputRef.current.value = "";
+      setHeader("");
     }
   };
 
@@ -36,16 +39,6 @@ function App() {
       <div className="menu-container">
         <p className="text">INFO</p>
         <div className="count-TEMP">{CardState.length}</div>
-        <input
-          ref={inputRef}
-          type="text"
-          onChange={(e) => {
-            setHeader(e.target.value);
-          }}
-        />
-        <div className="button" onClick={() => handleAddButton()}>
-          ADD
-        </div>
         <div className="button" onClick={() => dispatch(deleteBlock())}>
           DELETE
         </div>
@@ -58,6 +51,37 @@ function App() {
         {CardState.map((card) => {
           return <Block key={card.id} header={card.header} />;
         })}
+
+        <div
+          className={"add-button " + (visible ? "show" : "")}
+          onClick={() => setVisible(!visible)}
+        >
+          <span style={visible ? { display: "none" } : { display: "block" }}>
+            ADD
+          </span>
+          {visible && (
+            <div>
+              <input
+                className="input"
+                type="text"
+                ref={inputRef}
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+                onKeyDown={(e) => {
+                  e.key === "Enter" ? handleAddButton() : false;
+                }}
+                onChange={(e) => {
+                  setHeader(e.target.value);
+                }}
+                placeholder="Введите название блока"
+              />
+              <div className="button" onClick={() => handleAddButton()}>
+                ADD
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </>
   );

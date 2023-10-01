@@ -38,3 +38,29 @@
   font-size: large;
   font-weight: bold;
 }
+
+.add-button {
+  display: flex;
+  background-color: aqua;
+  height: 50px;
+  width: 230px;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  user-select: none;
+  transition: all 0.34s;
+}
+
+.show {
+  height: 100px;
+  background-color: rgb(129, 158, 158);
+}
+
+.input {
+  display: block;
+  width: 90%;
+  height: 50%;
+  border-radius: 10px;
+  transition: all 1s;
+}
