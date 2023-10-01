@@ -15,7 +15,7 @@ export const basicActionsSlice = createSlice({
     initialState,
     reducers: {
         addBlock: (state, action: PayloadAction<Block>) => {
-            state.values.push({id: action.payload.id, header: action.payload.header})
+            state.values.push(action.payload);
         },
         deleteBlock: (state) => {
             if (state.values.length <= 0) {

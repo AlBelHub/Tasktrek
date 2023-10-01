@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import basicActionsSlice from "./basicActionsSlice";
+import inputSlice from './inputSlice';
 
 
 export const store = configureStore({
     reducer: {
         basicAction: basicActionsSlice,
+        inputSlice: inputSlice,
     },
 })
 
