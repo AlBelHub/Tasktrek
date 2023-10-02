@@ -34,8 +34,15 @@ function App() {
         ref={scrollContainer}
         onWheel={(e) => handleWheel(e)}
       >
-        {CardState.map((card) => {
-          return <Block key={card.id} id={card.id} header={card.header} />;
+        {CardState.map((block) => {
+          return (
+            <Block
+              key={block.id}
+              parentBlockId={block.id}
+              header={block.header}
+              cards={block.cards}
+            />
+          );
         })}
         <AddInput CardState={CardState} />
       </div>

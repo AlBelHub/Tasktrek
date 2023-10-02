@@ -1,34 +1,55 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import {
+  PayloadAction,
+  createSlice,
+  current,
+  isAction,
+} from "@reduxjs/toolkit";
 
-import { Block } from "../types";
+import { Block, Card } from "../types";
+import { calcLength } from "framer-motion";
 
 interface basicAction {
-    values: Block[]
+  values: Block[];
 }
 
 const initialState: basicAction = {
-    values: []
-}
+  values: [],
+};
 
 export const basicActionsSlice = createSlice({
-    name: "basicActions",
-    initialState,
-    reducers: {
-        addBlock: (state, action: PayloadAction<Block>) => {
-            state.values.push(action.payload);
-        },
-        deleteBlock: (state) => {
-            if (state.values.length <= 0) {
-                state.values;
-            }else {
-                state.values.pop();
-            }
-        },
-    }
-})
+  name: "basicActions",
+  initialState,
+  reducers: {
+    addBlock: (state, action: PayloadAction<Block>) => {
+      const newBlock: Block = {
+        ...action.payload,
+        cards: [],
+      };
+      state.values.push(newBlock);
+    },
+    deleteBlock: (state) => {
+      if (state.values.length <= 0) {
+        state.values;
+      } else {
+        state.values.pop();
+      }
+    },
+    addCard: (state, action: PayloadAction<Card>) => {
+      const blockIndex = state.values.findIndex(
+        (block) => block.id === action.payload.parentBlockId
+      );
+      if (blockIndex !== -1) {
+        const block = state.values[blockIndex];
+        if (Array.isArray(block.cards)) {
+          block.cards.push(action.payload);
+        } else {
+          throw new Error("Can't match the Block");
+        }
+      }
+    },
+  },
+});
 
+export const { addBlock, deleteBlock, addCard } = basicActionsSlice.actions;
 
-
-export const { addBlock, deleteBlock } = basicActionsSlice.actions
-
-export default basicActionsSlice.reducer
+export default basicActionsSlice.reducer;
