@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteBlock } from "./store/basicActionsSlice.tsx";
 
 import Block from "./Block.tsx";
-import "./App.css";
 import { RootState } from "./store/store.tsx";
 import { AddInput } from "./AddInput.tsx";
+
+import "./main.scss";
 
 function App() {
   const CardState = useSelector(
@@ -30,7 +31,7 @@ function App() {
         </div>
       </div>
       <div
-        className="cards-container"
+        className="blocks-container no-select"
         ref={scrollContainer}
         onWheel={(e) => handleWheel(e)}
       >

@@ -28,7 +28,7 @@ export const AddInput = (CardState: RootState) => {
 
   return (
     <div
-      className={"add-button " + (visible ? "show" : "")}
+      className={"add-button " + (visible ? "add-button_show" : "")}
       onClick={() => setVisible(!visible)}
     >
       <span style={visible ? { display: "none" } : { display: "block" }}>

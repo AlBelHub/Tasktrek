@@ -9,7 +9,9 @@ interface Props {
 export const Card = ({ id, header, BlockID }: Props) => {
   return (
     <>
-      <p className="">{header}</p>
+      <div className="card card_m-p card_border">
+        <p className="card__header">{header}</p>
+      </div>
     </>
   );
 };

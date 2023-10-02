@@ -23,43 +23,39 @@ const Block = ({ header, parentBlockId }: Props) => {
 
   return (
     <>
-      <div className="card-container">
-        <div className="TEMP-container">
-          <div className="header-text">{header}</div>
-          <div className="content-container">
-            {CardStore[
-              CardStore.findIndex((el) => el.id === parentBlockId)
-            ].cards.map((card) => {
-              return (
-                <Card
-                  key={card.id}
-                  id={card.id}
-                  header={card.header}
-                  BlockID={parentBlockId}
-                />
-              );
-            })}
-
-            <input
-              type="text"
-              className="card-input"
-              onChange={(e) => setCardHeader(e.target.value)}
+      <div className="block block_m-p block_bg border">
+        <div className="block__header">{header}</div>
+        {CardStore[
+          CardStore.findIndex((el) => el.id === parentBlockId)
+        ].cards.map((card) => {
+          return (
+            <Card
+              key={card.id}
+              id={card.id}
+              header={card.header}
+              BlockID={parentBlockId}
             />
-            <div
-              className="button"
-              onClick={() => {
-                dispatch(
-                  addCard({
-                    id: nanoid(4),
-                    header: cardHeader,
-                    parentBlockId: parentBlockId,
-                  })
-                );
-              }}
-            >
-              add card
-            </div>
-          </div>
+          );
+        })}
+
+        <input
+          type="text"
+          className="input"
+          onChange={(e) => setCardHeader(e.target.value)}
+        />
+        <div
+          className="button button_border button_font button_m-p"
+          onClick={() => {
+            dispatch(
+              addCard({
+                id: nanoid(4),
+                header: cardHeader,
+                parentBlockId: parentBlockId,
+              })
+            );
+          }}
+        >
+          add card
         </div>
       </div>
     </>
