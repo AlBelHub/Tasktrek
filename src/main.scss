@@ -1,0 +1,146 @@
+$hoverColor: #dfdfdf;
+
+.body {
+    background-color: #ccc;
+}
+
+.menu-container {
+}
+
+.blocks-container {
+    display: flex;
+    flex: {
+        direction: row;
+        wrap: nowrap
+    }
+    overflow: scroll;
+}
+
+.block {
+
+    height: fit-content;
+
+    display: flex;
+    flex: {
+        basis: 230px;
+        shrink: 0;
+        grow: 0;
+        direction: column;
+    }
+
+    &__header {
+        font: {
+            size: 20px;
+            weight: bold;
+        }
+        color: rgb(0, 0, 0);
+        text-align: center;
+    }
+
+    &_m-p {
+        margin: 10px;
+        padding: 6px;
+    }
+
+    &_bg {
+        background-color: rgb(255, 255, 255);
+    }
+
+}
+
+.add-button {
+    background-color: rgb(255, 255, 255);
+
+    &_show {
+        background-color: aqua;
+    }
+
+}
+
+.border {
+    border: 2.25px solid rgba(65, 65, 65, 0.192);
+    border-radius: 10px;
+}
+
+.card {
+
+    height: fit-content;
+    width: 300px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+    &:hover {
+        background-color: $hoverColor;
+    }
+
+    &__header {
+        margin: 0;
+        font-size: 15px;
+    }
+
+    &_m-p {
+        margin: {
+            top: 3px;
+            bottom: 3px;
+        }
+        padding: 5px;
+    }
+
+    &_border {
+        border: 1px solid rgb(117, 117, 117);
+    }
+    transition: all 0.1s;
+}
+
+.input {
+
+    padding: 6px;
+
+    &:focus {
+
+    }
+
+    &:hover {
+
+    }
+}
+
+.button {
+
+    width: fit-content;
+
+    &_m-p {
+        margin: {
+            top: 7px;
+            bottom: 7px;
+        } 
+        padding: 3px;
+    }
+
+    &_font {
+        font: {
+            size: 20px;
+            weight: bold;
+        }
+    }
+
+    &_border {
+        border: 1px solid rgba(0, 0, 0, 0.226);
+        border-radius: 5px;
+    }
+
+    &:hover {
+        background-color: $hoverColor;
+    }
+
+    transition: all 0.10s;
+}
+
+.text {
+    color: red;
+}
+
+.no-select {
+    user-select: none;
+}
