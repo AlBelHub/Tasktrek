@@ -23,12 +23,11 @@ function App() {
 
   return (
     <>
-      <div className="menu-container">
-        <p className="text">INFO</p>
-        <div className="count-TEMP">{CardState.length}</div>
-        <div className="button" onClick={() => dispatch(deleteBlock())}>
+      <div className="menu__container">
+        <p className="menu__text">Название доски</p>
+        {/* <div className="button" onClick={() => dispatch(deleteBlock())}>
           DELETE
-        </div>
+        </div> */}
       </div>
       <div
         className="blocks-container no-select"

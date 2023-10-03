@@ -27,8 +27,10 @@ export const AddInput = (CardState: RootState) => {
   };
 
   return (
-    <div
-      className={"add-button " + (visible ? "add-button_show" : "")}
+    <button
+      className={
+        "add-button add-button_m-p " + (visible ? "add-button_show" : "")
+      }
       onClick={() => setVisible(!visible)}
     >
       <span style={visible ? { display: "none" } : { display: "block" }}>
@@ -51,11 +53,11 @@ export const AddInput = (CardState: RootState) => {
             }}
             placeholder="Введите название блока"
           />
-          <div className="button" onClick={() => handleAddButton()}>
+          <button className="button button_m-p button_font" onClick={() => handleAddButton()}>
             ADD
-          </div>
+          </button>
         </div>
       )}
-    </div>
+    </button>
   );
 };

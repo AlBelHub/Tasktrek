@@ -41,7 +41,11 @@ export const basicActionsSlice = createSlice({
       if (blockIndex !== -1) {
         const block = state.values[blockIndex];
         if (Array.isArray(block.cards)) {
-          block.cards.push(action.payload);
+          if (action.payload.header.length === 0) {
+            return;
+          } else {
+            block.cards.push(action.payload);
+          }
         } else {
           throw new Error("Can't match the Block");
         }
