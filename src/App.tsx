@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState, useRef, useEffect } from "react";
+import React, { SyntheticEvent, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteBlock } from "./store/basicActionsSlice.tsx";
 
@@ -25,9 +25,6 @@ function App() {
     <>
       <div className="menu__container">
         <p className="menu__text">Название доски</p>
-        {/* <div className="button" onClick={() => dispatch(deleteBlock())}>
-          DELETE
-        </div> */}
       </div>
       <div
         className="blocks-container no-select"

@@ -12,7 +12,6 @@ interface Props {
 }
 
 const Block = ({ header, parentBlockId }: Props) => {
-  const [card, setCard] = useState([1]);
   const [cardHeader, setCardHeader] = useState("");
   const [visible, setVisible] = useState(false);
 
@@ -20,7 +19,8 @@ const Block = ({ header, parentBlockId }: Props) => {
     setVisible(!visible);
   };
 
-  const handleAddButton = () => {
+  const handleAddButton = (e) => {
+    e.preventDefault();
     setVisible(!visible);
     dispatch(
       addCard({
@@ -55,32 +55,44 @@ const Block = ({ header, parentBlockId }: Props) => {
         })}
 
         <button
-          className="button button_font"
+          className="button button_font button_border button_m-p"
           style={visible ? { display: "none" } : { display: "block" }}
+          autoFocus
           onClick={() => handleShowCardInput()}
         >
-          Add card
+          Add new card
         </button>
         {visible && (
-          <div style={visible ? { display: "block" } : { display: "none" }}>
+          <div
+            style={visible ? { display: "block" } : { display: "none" }}
+            className="input-container"
+          >
             <input
               type="text"
               className="input"
+              placeholder="Введите название..."
               onKeyDown={(e) => {
-                e.key === "Enter" ? handleAddButton() : false;
+                e.key === "Enter" ? handleAddButton(e) : false;
               }}
               onChange={(e) => setCardHeader(e.target.value)}
             />
 
-            <button
-              className="button button_border button_font button_m-p"
-              onClick={() => {
-                handleAddButton();
-              }}
-            >
-              Add new card
-            </button>
-            <button className="button button_font" onClick={() => setVisible(!visible)}>close</button>
+            <div className="buttons">
+              <button
+                className="button button_border button_font button_m-p"
+                onClick={(e) => {
+                  handleAddButton(e);
+                }}
+              >
+                Confirm
+              </button>
+              <button
+                className="button button_font button_border button_m-p"
+                onClick={() => setVisible(!visible)}
+              >
+                close
+              </button>
+            </div>
           </div>
         )}
       </div>

@@ -1,5 +1,5 @@
-import React from "react";
-import { useState, useRef } from "react";
+import React, { SyntheticEvent } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addBlock } from "./store/basicActionsSlice";
 import { RootState } from "./store/store";
@@ -12,22 +12,20 @@ export const AddInput = (CardState: RootState) => {
   const [header, setHeader] = useState("");
 
   const dispatch = useDispatch();
-
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleAddButton = () => {
+  const handleAddButton = (e: SyntheticEvent) => {
     if (header.length === 0) {
-      inputRef.current.focus();
+      return;
     } else {
       dispatch(addBlock({ id: nanoid(4), header: header }));
-      inputRef.current.value = "";
       setHeader("");
-      inputRef.current.focus();
+      inputRef.current.value = "";
     }
   };
 
   return (
-    <button
+    <div
       className={
         "add-button add-button_m-p " + (visible ? "add-button_show" : "")
       }
@@ -40,24 +38,37 @@ export const AddInput = (CardState: RootState) => {
         <div>
           <input
             className="input"
-            type="text"
+            autoFocus
             ref={inputRef}
+            id="BlockNameInput"
+            type="text"
             onClick={(e) => {
               e.stopPropagation();
             }}
             onKeyDown={(e) => {
-              e.key === "Enter" ? handleAddButton() : false;
+              e.key === "Enter" ? handleAddButton(e) : false;
             }}
             onChange={(e) => {
               setHeader(e.target.value);
             }}
-            placeholder="Введите название блока"
+            placeholder="Введите название..."
           />
-          <button className="button button_m-p button_font" onClick={() => handleAddButton()}>
-            ADD
-          </button>
+          <div className="buttons">
+            <button
+              className="button button_m-p button_font button_border"
+              onClick={(e) => handleAddButton(e)}
+            >
+              Add card
+            </button>
+            <button
+              className="button button_m-p button_font button_border"
+              onClick={() => setVisible(!visible)}
+            >
+              Close
+            </button>
+          </div>
         </div>
       )}
-    </button>
+    </div>
   );
 };
