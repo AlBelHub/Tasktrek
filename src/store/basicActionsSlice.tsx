@@ -1,12 +1,6 @@
-import {
-  PayloadAction,
-  createSlice,
-  current,
-  isAction,
-} from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { Block, Card } from "../types";
-import { calcLength } from "framer-motion";
+import { Block, Card, Tag } from "../types";
 
 interface basicAction {
   values: Block[];
@@ -51,9 +45,29 @@ export const basicActionsSlice = createSlice({
         }
       }
     },
+    deleteCard: (state, action: PayloadAction<Card>) => {
+      const blockIndex = state.values.findIndex(
+        (block) => block.id === action.payload.parentBlockId
+      );
+      const block = state.values[blockIndex];
+      block.cards.splice(
+        block.cards.findIndex((card) => card.id === action.payload.id),
+        1
+      );
+    },
+    addTag: (state, action: PayloadAction<Tag>) => {
+      const blockID = state.values.findIndex(
+        (block) => block.id === action.payload.blockId
+      );
+      const cardId = state.values[blockID].cards.findIndex(
+        (card) => card.id === action.payload.cardID
+      );
+      state.values[blockID].cards[cardId].tags.push(action.payload);
+    },
   },
 });
 
-export const { addBlock, deleteBlock, addCard } = basicActionsSlice.actions;
+export const { addBlock, deleteBlock, addCard, deleteCard, addTag } =
+  basicActionsSlice.actions;
 
 export default basicActionsSlice.reducer;
