@@ -18,7 +18,7 @@ export const AddInput = (CardState: RootState) => {
     if (header.length === 0) {
       return;
     } else {
-      dispatch(addBlock({ id: nanoid(4), header: header }));
+      dispatch(addBlock({ id: nanoid(4), header: header, cards: [] }));
       setHeader("");
       inputRef.current.value = "";
     }
