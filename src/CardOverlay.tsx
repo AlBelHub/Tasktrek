@@ -1,13 +1,44 @@
-import React from "react";
+import React, { SyntheticEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { RootState } from "./store/store";
+import { addTag } from "./store/basicActionsSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 interface Props {
   setOpenCard: Function;
   cardID: string;
   BlockID: string;
+  blockIndex: number;
+  cardIndex: number;
 }
 
-export const CardOverlay = ({ setOpenCard }: Props) => {
+export const CardOverlay = ({
+  setOpenCard,
+  cardID,
+  BlockID,
+  blockIndex,
+  cardIndex,
+}: Props) => {
+  const dispatch = useDispatch();
+
+  const CardStore = useSelector(
+    (state: RootState): any => state.basicAction.values
+  );
+
+  const Tags = CardStore[blockIndex].cards[cardIndex].tags;
+
+  const handleEditTag = (e: SyntheticEvent) => {
+    e.stopPropagation();
+    dispatch(
+      addTag({
+        text: "123",
+        cardID: cardID,
+        color: "#999999",
+        blockId: BlockID,
+      })
+    );
+  };
+
   return (
     <>
       <AnimatePresence>
@@ -19,7 +50,7 @@ export const CardOverlay = ({ setOpenCard }: Props) => {
           exit={{ opacity: 0 }}
         >
           <div className="overlay__container overlay__header overlay__header_font overlay__header_m-p">
-            smth smth smth
+            {CardStore[blockIndex].cards[cardIndex].header}
             <span className="edit-icon edit-icon_m-p"></span>
           </div>
           <div className="tags-container">
@@ -27,7 +58,19 @@ export const CardOverlay = ({ setOpenCard }: Props) => {
             <span className="tag border border_radius">Hurry!</span>
             <span className="tag border border_radius">Overdue</span>
             <span className="tag border border_radius">Example</span>
-            <span className="tag button button_font button_radius button_m-p">
+            {Tags.map((el, i) => (
+              <div
+                style={{ backgroundColor: el.color }}
+                key={i}
+                className="tag border border_radius"
+              >
+                {el.text}
+              </div>
+            ))}
+            <span
+              onClick={(e) => handleEditTag(e)}
+              className="tag button button_font button_radius button_m-p"
+            >
               Edit tags
             </span>
           </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { SyntheticEvent } from "react";
 import { useState, useRef, useEffect } from "react";
 import { Card } from "./Card";
 import { RootState } from "./store/store.tsx";
@@ -19,7 +19,7 @@ const Block = ({ header, parentBlockId }: Props) => {
     setVisible(!visible);
   };
 
-  const handleAddButton = (e) => {
+  const handleAddButton = (e: SyntheticEvent) => {
     e.preventDefault();
     setVisible(!visible);
     dispatch(
@@ -27,6 +27,7 @@ const Block = ({ header, parentBlockId }: Props) => {
         id: nanoid(4),
         header: cardHeader,
         parentBlockId: parentBlockId,
+        tags: [],
       })
     );
   };
