@@ -45,13 +45,14 @@ body {
 }
 
 .block {
+  width: 235px;
   height: fit-content;
-
   display: flex;
-  flex: 0 0 225px;
   flex-direction: column;
 
   &__header {
+    word-break: break-all;
+    width: 230px;
     border-radius: $borderRadius;
     padding: 3px;
     margin-bottom: 5px;
@@ -144,9 +145,13 @@ body {
   &__header {
     background-color: #79797970;
     border-radius: 5px;
+    width: fit-content;
 
     &_font {
       font-size: 30px;
+    }
+
+    &_m-p {
     }
   }
 
@@ -169,6 +174,7 @@ body {
 }
 
 .card {
+  width: 225px;
   height: fit-content;
   background-color: #5d5d5d;
   color: rgb(223, 223, 223);
@@ -279,6 +285,7 @@ body {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  flex-wrap: wrap;
 
   margin: {
     top: 10px;
